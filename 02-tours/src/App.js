@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Loading from './Loading'
 import Tours from './Tours'
+
+const TourContext = React.createContext()
 
 const url = 'https://course-api.com/react-tours-project'
 function App() {
   const [tours, setTours] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+
+  const removeTour = (tourID) => {
+    setTours(tours.filter((tour) => tour.id !== tourID))
+  }
 
   const fetchTours = async () => {
     try {
@@ -23,7 +29,22 @@ function App() {
     fetchTours()
   }, [])
 
-  return <main>{isLoading ? <Loading /> : <Tours tours={tours} />}</main>
+  return (
+    <main>
+      {isLoading ? (
+        <Loading />
+      ) : tours.length > 0 ? (
+        <Tours tours={tours} removeTour={removeTour} />
+      ) : (
+        <div className='title'>
+          <h2>No tours left</h2>
+          <button className='btn btn-primary' onClick={fetchTours}>
+            Refresh
+          </button>
+        </div>
+      )}
+    </main>
+  )
 }
 
 export default App
