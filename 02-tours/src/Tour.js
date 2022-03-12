@@ -1,7 +1,9 @@
 import React, { useContext, useState } from 'react'
 
-const Tour = ({ id, image, info, price, name, removeTour }) => {
-  // const { removeTour } = useContext(TourContext)
+import { TourContext } from './App'
+
+const Tour = ({ id, image, info, price, name }) => {
+  const { removeTour } = useContext(TourContext)
   const [isVisible, setIsVisible] = useState(false)
 
   return (

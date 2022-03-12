@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import Loading from './Loading'
 import Tours from './Tours'
 
-const TourContext = React.createContext()
+export const TourContext = React.createContext()
 
 const url = 'https://course-api.com/react-tours-project'
 function App() {
@@ -30,20 +30,22 @@ function App() {
   }, [])
 
   return (
-    <main>
-      {isLoading ? (
-        <Loading />
-      ) : tours.length > 0 ? (
-        <Tours tours={tours} removeTour={removeTour} />
-      ) : (
-        <div className='title'>
-          <h2>No tours left</h2>
-          <button className='btn btn-primary' onClick={fetchTours}>
-            Refresh
-          </button>
-        </div>
-      )}
-    </main>
+    <TourContext.Provider value={{ removeTour }}>
+      <main>
+        {isLoading ? (
+          <Loading />
+        ) : tours.length > 0 ? (
+          <Tours tours={tours} />
+        ) : (
+          <div className='title'>
+            <h2>No tours left</h2>
+            <button className='btn btn-primary' onClick={fetchTours}>
+              Refresh
+            </button>
+          </div>
+        )}
+      </main>
+    </TourContext.Provider>
   )
 }
 
