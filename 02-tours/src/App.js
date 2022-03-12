@@ -8,10 +8,15 @@ function App() {
   const [isLoading, setIsLoading] = useState(true)
 
   const fetchTours = async () => {
-    const res = await fetch(url)
-    const tours = await res.json()
-    setTours(tours)
-    setIsLoading(false)
+    try {
+      const res = await fetch(url)
+      const tours = await res.json()
+      setTours(tours)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      console.log(error)
+    }
   }
 
   useEffect(() => {

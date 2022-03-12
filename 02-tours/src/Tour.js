@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
 
-const Tour = ({ image, info }) => {
+const Tour = ({ id, image, info, price, name }) => {
   return (
-    <>
-      <article>
-        <img src={image} alt='' />
-        <div>
-          <h4>{info}</h4>
+    <article className='sigle-tour'>
+      <img src={image} alt={name} />
+      <footer>
+        <div className='tour-info'>
+          <h4>{name}</h4>
         </div>
-      </article>
-    </>
+      </footer>
+    </article>
   )
 }
 
